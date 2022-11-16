@@ -10,22 +10,23 @@ using TritonExpress.API.Persistence;
 
 namespace TritonExpress.API.Service.Features.VehicleFeatures.Command
 {
-    public class InsertLocationComman : Vehicle,IRequest<int>
+    public class InsertVehicleComman : Vehicle,IRequest<int>
     {
-        public class InsertVehichleCommanHandler : IRequestHandler<InsertLocationComman, int>
+        public class InsertVehichleCommanHandler : IRequestHandler<InsertVehicleComman, int>
         {
             private readonly IApplicationDbContext context;
             public InsertVehichleCommanHandler(IApplicationDbContext context)
             {
                 this.context = context;
             }
-            public async Task<int> Handle(InsertLocationComman request, CancellationToken cancellationToken)
+            public async Task<int> Handle(InsertVehicleComman request, CancellationToken cancellationToken)
             {
                 var vehicle = new Vehicle();
                 vehicle.RegistrationNo = request.RegistrationNo;
                 vehicle.Year = request.Year;
                 vehicle.Make = request.Make;
                 vehicle.Model = request.Model;
+                vehicle.BranchId = request.BranchId;
 
                 await context.Vehicles.AddAsync(vehicle);
                 await context.SaveChangesAsync();

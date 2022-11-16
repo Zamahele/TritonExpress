@@ -87,7 +87,7 @@ namespace TritonExpress.APP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BranchId,BranchName")] Branch branch)
+        public async Task<IActionResult> Edit(int id, [Bind("BranchId,BranchName,Address,ZipCode,PhoneNumber")] Branch branch)
         {
             if (id != branch.BranchId)
             {

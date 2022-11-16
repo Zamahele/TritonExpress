@@ -4,14 +4,25 @@
     ViewData["Title"] = "Index";
 }
 
+<h4 style="text-align:center">Branch List</h4>
+
 <p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
+    <a asp-action="Create" class="btn btn-primary btn-sm">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.BranchName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ZipCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
             </th>
             <th>
                 Action
@@ -23,6 +34,15 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.BranchName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ZipCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.BranchId" class="btn btn-warning btn-sm">Edit</a> 

@@ -13,5 +13,6 @@ namespace TritonExpress.API.Service.Contract
         Task<Vehicle> GetVehicleById(int vehicleId);
         Task<int> InsertVehicle(Vehicle vehicle);
         Task UpdateVehicle(Vehicle vehicle);
+        Task DeleteVehicle(int vehicleId);
     }
 }

@@ -11,16 +11,16 @@ using TritonExpress.API.Persistence;
 
 namespace TritonExpress.API.Service.Features.VehicleFeatures.Command
 {
-    public class UpdateWayBillCopmman: Vehicle,IRequest<Vehicle>
+    public class UpdateVehicleCommand: Vehicle,IRequest<Vehicle>
     {
-        public class UpdateVehicleCopmmanHandler : IRequestHandler<UpdateWayBillCopmman, Vehicle>
+        public class UpdateVehicleCopmmanHandler : IRequestHandler<UpdateVehicleCommand, Vehicle>
         {
             private readonly IApplicationDbContext context;
             public UpdateVehicleCopmmanHandler(IApplicationDbContext context)
             {
                 this.context = context;
             }
-            public async Task<Vehicle> Handle(UpdateWayBillCopmman request, CancellationToken cancellationToken)
+            public async Task<Vehicle> Handle(UpdateVehicleCommand request, CancellationToken cancellationToken)
             {
                 var vehicle = await context.Vehicles.FirstOrDefaultAsync(x => x.VehicleId == request.VehicleId);
 
@@ -29,7 +29,9 @@ namespace TritonExpress.API.Service.Features.VehicleFeatures.Command
                 vehicle.Year = request.Year;
                 vehicle.Make = request.Make;
                 vehicle.Model = request.Model;
-                 context.Vehicles.Update(vehicle);
+                vehicle.BranchId = request.BranchId;
+
+                context.Vehicles.Update(vehicle);
                 await context.SaveChangesAsync();
                 return vehicle;
                         

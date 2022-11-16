@@ -35,9 +35,13 @@ namespace TritonExpress.API.Controllers
             return Ok(await Mediator.Send(command));
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id,UpdateBranchCopmmand command)
         {
+            if (id != command.BranchId)
+            {
+                return BadRequest();
+            }
             return Ok(await Mediator.Send(command));
         }
 

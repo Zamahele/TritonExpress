@@ -23,6 +23,9 @@ namespace TritonExpress.API.Service.Features.BranchFeatures.Command
             {
                 var branch = new Branch();
                 branch.BranchName = request.BranchName;
+                branch.Address  = request.Address;
+                branch.PhoneNumber = request.PhoneNumber;
+                branch.ZipCode = request.ZipCode;
 
                 await context.Branches.AddAsync(branch);
                 await context.SaveChangesAsync();

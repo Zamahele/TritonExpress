@@ -17,6 +17,11 @@ namespace TritonExpress.API.Service.Implementation
             this.repository.requestUrl = "Vehicle";
         }
 
+        public async Task DeleteVehicle(int vehicleId)
+        {
+            await repository.Remove(vehicleId);
+        }
+
         public async Task<IQueryable<Vehicle>> GetAllVehicles()
         {
             return await repository.GetAll();
