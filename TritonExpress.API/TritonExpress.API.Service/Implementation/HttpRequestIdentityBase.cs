@@ -22,7 +22,6 @@ namespace TritonExpress.API.Service.Implementation
             httpClient.BaseAddress = new Uri(_url);
             httpClient.DefaultRequestHeaders.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "xxxx");
         }
     }
 }

@@ -61,12 +61,12 @@ namespace TritonExpress.APP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("VehicleId,Model,Make,Year,RegistrationNo,BranchId")] Vehicle vehicle)
         {
-            if (ModelState.IsValid && !VehicleExists(vehicle.RegistrationNo))
+            if (ModelState.IsValid && !VehicleExists(vehicle.RegistrationNo, vehicle.VehicleId))
             {
                 await _context.InsertVehicle(vehicle);
                 return RedirectToAction(nameof(Index));
             }
-            if (VehicleExists(vehicle.RegistrationNo))
+            if (VehicleExists(vehicle.RegistrationNo, vehicle.VehicleId))
                 ModelState.AddModelError(string.Empty,"Vihleces can't share the same registration number");
             return View(vehicle);
         }
@@ -100,7 +100,7 @@ namespace TritonExpress.APP.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid && !VehicleExists(vehicle.RegistrationNo))
+            if (ModelState.IsValid && !VehicleExists(vehicle.RegistrationNo, vehicle.VehicleId))
             {
                 try
                 {
@@ -120,7 +120,7 @@ namespace TritonExpress.APP.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            if (VehicleExists(vehicle.RegistrationNo))
+            if (VehicleExists(vehicle.RegistrationNo, vehicle.VehicleId))
                 ModelState.AddModelError(string.Empty, "Vihleces can't share the same registration number");
             return View(vehicle);
         }
@@ -170,9 +170,9 @@ namespace TritonExpress.APP.Controllers
           return _context.GetAllVehicles().Result.Any(e => e.VehicleId == id);
         }
 
-        private bool VehicleExists(string registrationNo)
+        private bool VehicleExists(string registrationNo , int Id)
         {
-            return _context.GetAllVehicles().Result.Any(e => e.RegistrationNo == registrationNo);
+            return _context.GetAllVehicles().Result.Any(e => e.RegistrationNo == registrationNo && e.VehicleId == Id);
         }
 
         private bool VehicleIsLined(int id)
