@@ -20,18 +20,27 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Branch" asp-action="Index">Branches</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Vehicles" asp-action="Index">Vehicles</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="WayBills" asp-action="Index">WayBills</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Allocations" asp-action="Index">Allocations</a>
-                        </li>
+                        @if (User.Identity?.Name != null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Branch" asp-action="Index">Branches</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Vehicles" asp-action="Index">Vehicles</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="WayBills" asp-action="Index">WayBills</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Allocations" asp-action="Index">Allocations</a>
+                            </li>
+                            if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Roles" asp-action="Index">Roles</a>
+                                </li>
+                            }
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

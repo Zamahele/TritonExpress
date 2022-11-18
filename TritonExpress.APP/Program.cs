@@ -12,9 +12,15 @@ builder.Services.AddDbContext<IdentityContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
-    .AddEntityFrameworkStores<IdentityContext>();
+//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+//    .AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+.AddDefaultUI()
+.AddEntityFrameworkStores<IdentityContext>();
+
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(IRepositoryIdentity<>), typeof(RepositoryIdentity<>));
@@ -26,6 +32,13 @@ builder.Services.AddScoped<IStatusService, StatusService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<ICacheService, CacheService>();
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("readpolicy",
+        builder => builder.RequireRole("Admin", "User"));
+    options.AddPolicy("writepolicy",
+        builder => builder.RequireRole("Admin"));
+});
 
 
 var app = builder.Build();

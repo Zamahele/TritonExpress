@@ -15,11 +15,13 @@ namespace TritonExpress.APP.Controllers
     {
         private readonly IVehicleService _context;
         private readonly IBranchService _braches;
+        private readonly IAllocationService _allocation;
 
-        public VehiclesController(IVehicleService context, IBranchService braches)
+        public VehiclesController(IVehicleService context, IBranchService braches, IAllocationService allocation)
         {
             _context = context;
             _braches = braches;
+            _allocation = allocation;
         }
 
         // GET: Vehicles
@@ -59,11 +61,13 @@ namespace TritonExpress.APP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("VehicleId,Model,Make,Year,RegistrationNo,BranchId")] Vehicle vehicle)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && !VehicleExists(vehicle.RegistrationNo))
             {
                 await _context.InsertVehicle(vehicle);
                 return RedirectToAction(nameof(Index));
             }
+            if (VehicleExists(vehicle.RegistrationNo))
+                ModelState.AddModelError(string.Empty,"Vihleces can't share the same registration number");
             return View(vehicle);
         }
 
@@ -96,7 +100,7 @@ namespace TritonExpress.APP.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && !VehicleExists(vehicle.RegistrationNo))
             {
                 try
                 {
@@ -116,6 +120,8 @@ namespace TritonExpress.APP.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            if (VehicleExists(vehicle.RegistrationNo))
+                ModelState.AddModelError(string.Empty, "Vihleces can't share the same registration number");
             return View(vehicle);
         }
 
@@ -146,9 +152,14 @@ namespace TritonExpress.APP.Controllers
                 return Problem("Entity set 'ApplicationDbContext.Vehicles'  is null.");
             }
             var vehicle = await _context.GetVehicleById(id);
-            if (vehicle != null)
+            if (vehicle != null && !VehicleIsLined(id))
             {
                 await _context.DeleteVehicle(id);
+            }
+            if (VehicleIsLined(id))
+            {
+                ModelState.AddModelError(String.Empty,"Vehicle got Waybills allocated, sorry!!!");
+                return View(vehicle);
             }
            
             return RedirectToAction(nameof(Index));
@@ -158,5 +169,16 @@ namespace TritonExpress.APP.Controllers
         {
           return _context.GetAllVehicles().Result.Any(e => e.VehicleId == id);
         }
+
+        private bool VehicleExists(string registrationNo)
+        {
+            return _context.GetAllVehicles().Result.Any(e => e.RegistrationNo == registrationNo);
+        }
+
+        private bool VehicleIsLined(int id)
+        {
+            return _allocation.GetAllLocations().Result.Any(e => e.VehicleId == id);
+        }
+
     }
 }
