@@ -10,16 +10,16 @@ using TritonExpress.API.Persistence;
 
 namespace TritonExpress.API.Service.Features.WayBillFeatures.Command
 {
-    public class InsertLocationComman : WayBill,IRequest<int>
+    public class InsertWayBillComman : WayBill,IRequest<int>
     {
-        public class InsertVehichleCommanHandler : IRequestHandler<InsertLocationComman, int>
+        public class InsertVehichleCommanHandler : IRequestHandler<InsertWayBillComman, int>
         {
             private readonly IApplicationDbContext context;
             public InsertVehichleCommanHandler(IApplicationDbContext context)
             {
                 this.context = context;
             }
-            public async Task<int> Handle(InsertLocationComman request, CancellationToken cancellationToken)
+            public async Task<int> Handle(InsertWayBillComman request, CancellationToken cancellationToken)
             {
                 var WayBill = new WayBill();
                 WayBill.WaybillNo = request.WaybillNo;

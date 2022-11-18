@@ -10,30 +10,30 @@ namespace TritonExpress.API.Service.Implementation
 {
     public class LocationService : ILocationService
     {
-        private readonly IRepository<Location> repository;
-        public LocationService(IRepository<Location> repository)
+        private readonly IRepository<Allocation> repository;
+        public LocationService(IRepository<Allocation> repository)
         {
             this.repository = repository;
             this.repository.requestUrl = "Location";
         }
-        public async Task<IQueryable<Location>> GetAllLocations()
+        public async Task<IQueryable<Allocation>> GetAllLocations()
         {
             return await repository.GetAll();
         }
 
-        public Task<Location> GetLocationById(int LocationId)
+        public Task<Allocation> GetLocationById(int LocationId)
         {
             return repository.GetById(LocationId);
         }
 
-        public async Task<int> InsertLocation(Location location)
+        public async Task<int> InsertLocation(Allocation location)
         {
             return await repository.Insert(location);
         }
 
-        public async Task UpdateLocation(Location location)
+        public async Task UpdateLocation(Allocation location)
         {
-           await repository.Update(location, location.LocationId);
+           await repository.Update(location, location.AllocationId);
         }
     }
 }

@@ -28,6 +28,7 @@ namespace TritonExpress.API.Service.Features.VehicleFeatures.Command
                     return default;
                 }
                 context.Vehicles.Remove(Vehicle);
+                await context.SaveChangesAsync();
                 return Vehicle.VehicleId;
             }
         }

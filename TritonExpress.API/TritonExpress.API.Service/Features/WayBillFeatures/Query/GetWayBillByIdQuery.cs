@@ -11,19 +11,19 @@ using TritonExpress.API.Persistence;
 
 namespace TritonExpress.API.Service.Features.WayBillFeatures.Query
 {
-    public class GetLocationByIdQuery:IRequest<WayBill>
+    public class GetWayBillByIdQuery:IRequest<WayBill>
     {
-        public int id { get; set; }
-        public class GetWayBillByIdQueryHandler : IRequestHandler<GetLocationByIdQuery, WayBill>
+        public int Id { get; set; }
+        public class GetWayBillByIdQueryHandler : IRequestHandler<GetWayBillByIdQuery, WayBill>
         {
             private readonly IApplicationDbContext context;
             public GetWayBillByIdQueryHandler(IApplicationDbContext context)
             {
                 this.context = context;
             }
-            public async Task<WayBill> Handle(GetLocationByIdQuery request, CancellationToken cancellationToken)
+            public async Task<WayBill> Handle(GetWayBillByIdQuery request, CancellationToken cancellationToken)
             {
-                return await context.WayBills.FirstOrDefaultAsync(x => x.WayBillId == request.id);
+                return await context.WayBills.FirstOrDefaultAsync(x => x.WayBillId == request.Id);
             }
         }
     }

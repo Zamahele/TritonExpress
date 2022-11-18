@@ -1,0 +1,73 @@
+﻿@model IEnumerable<TritonExpress.API.Domain.Entities.WayBill>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h4 style="text-align:center">WayBill List</h4>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary btn-sm">Create New</a>
+</p>
+<table class="table table-striped" id="Datatable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.WaybillNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WaybillDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ETADate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ETATime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Weight)
+            </th>
+            <th style="text-align:center">
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.WaybillNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WaybillDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ETADate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ETATime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Weight)
+            </td>
+            <td style="text-align:center">
+                <a asp-action="Edit" asp-route-id="@item.WayBillId" class="btn btn-warning btn-sm">Edit</a> 
+                <a asp-action="Details" asp-route-id="@item.WayBillId" class="btn btn-info btn-sm">Details</a> 
+                <a asp-action="Delete" asp-route-id="@item.WayBillId" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -47,6 +47,8 @@ namespace TritonExpress.API.Service
             #region Services
             services.AddTransient<IAccountService, AccountService>();
             #endregion
+
+
             services.Configure<JWTSettings>(configuration.GetSection("JWTSettings"));
             services.AddAuthentication(options =>
             {
@@ -56,7 +58,7 @@ namespace TritonExpress.API.Service
                 .AddJwtBearer(o =>
                 {
                     o.RequireHttpsMetadata = false;
-                    o.SaveToken = false;
+                    o.SaveToken = true;
                     o.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,

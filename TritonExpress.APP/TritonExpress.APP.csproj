@@ -22,4 +22,9 @@
     <ProjectReference Include="..\TritonExpress.API\TritonExpress.API.Service\TritonExpress.API.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+    <Folder Include="Data\Migrations\" />
+  </ItemGroup>
+
 </Project>

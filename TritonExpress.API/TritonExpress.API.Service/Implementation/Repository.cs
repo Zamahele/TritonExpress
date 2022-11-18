@@ -70,5 +70,11 @@ namespace TritonExpress.API.Service.Implementation
             var result = response.Content.ReadAsAsync<IEnumerable<T>>().Result;
             return result.AsQueryable();
         }
+
+        public HttpResponseMessage GetToken(string userName)
+        {
+            var response =  HttpRequestBase.httpClient.GetAsync(requestUrl + "/" + userName).Result;
+            return response;
+        }
     }
 }

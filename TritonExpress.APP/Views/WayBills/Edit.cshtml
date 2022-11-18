@@ -1,0 +1,62 @@
+﻿@model TritonExpress.API.Domain.Entities.WayBill
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h4 style="text-align:center">WayBill Info</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="WayBillId" />
+            <div class="form-group">
+                <label asp-for="WaybillNo" class="control-label"></label>
+                <input asp-for="WaybillNo" class="form-control" />
+                <span asp-validation-for="WaybillNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WaybillDate" class="control-label"></label>
+                <input asp-for="WaybillDate" class="form-control" />
+                <span asp-validation-for="WaybillDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                 <select asp-for="Status" class="form-control" asp-items="ViewBag.Status"></select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ETADate" class="control-label"></label>
+                <input asp-for="ETADate" class="form-control" />
+                <span asp-validation-for="ETADate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ETATime" class="control-label"></label>
+                <input asp-for="ETATime" class="form-control" />
+                <span asp-validation-for="ETATime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity" class="control-label"></label>
+                <input asp-for="Quantity" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Weight" class="control-label"></label>
+                <input asp-for="Weight" class="form-control" />
+                <span asp-validation-for="Weight" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

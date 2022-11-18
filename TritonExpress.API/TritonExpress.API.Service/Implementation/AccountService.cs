@@ -101,7 +101,7 @@ namespace TritonExpress.API.Service.Implementation
 
                     if (await _featureManager.IsEnabledAsync(nameof(FeatureManagement.EnableEmailService)))
                     {
-                        await _emailService.SendEmailAsync(new MailRequest() { From = "amit.naik8103@gmail.com", ToEmail = user.Email, Body = $"Please confirm your account by visiting this URL {verificationUri}", Subject = "Confirm Registration" });
+                        await _emailService.SendEmailAsync(new MailRequest() { From = "ndimandezj@gmail.com", ToEmail = user.Email, Body = $"Please confirm your account by visiting this URL {verificationUri}", Subject = "Confirm Registration" });
                     }
                     return new Response<string>(user.Id, message: $"User Registered. Please confirm your account by visiting this URL {verificationUri}");
                 }

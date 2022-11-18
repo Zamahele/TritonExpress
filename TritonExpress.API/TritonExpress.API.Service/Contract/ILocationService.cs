@@ -9,9 +9,9 @@ namespace TritonExpress.API.Service.Contract
 {
     public interface ILocationService
     {
-        Task<IQueryable<Location>> GetAllLocations();
-        Task<Location> GetLocationById(int LocationId);
-        Task<int> InsertLocation (Location location);
-        Task UpdateLocation(Location location);
+        Task<IQueryable<Allocation>> GetAllLocations();
+        Task<Allocation> GetLocationById(int LocationId);
+        Task<int> InsertLocation (Allocation location);
+        Task UpdateLocation(Allocation location);
     }
 }

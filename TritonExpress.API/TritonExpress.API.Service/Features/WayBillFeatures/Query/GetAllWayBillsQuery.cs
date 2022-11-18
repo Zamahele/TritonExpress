@@ -11,16 +11,16 @@ using TritonExpress.API.Persistence;
 
 namespace TritonExpress.API.Service.Features.WayBillFeatures.Query
 {
-    public class GetAllLocationQuery : IRequest<IEnumerable<WayBill>>
+    public class GetAllWayBillQuery : IRequest<IEnumerable<WayBill>>
     {
-        public class GetAllWayBillsQueryHanndler : IRequestHandler<GetAllLocationQuery, IEnumerable<WayBill>>
+        public class GetAllWayBillsQueryHanndler : IRequestHandler<GetAllWayBillQuery, IEnumerable<WayBill>>
         {
             private readonly IApplicationDbContext context;
             public GetAllWayBillsQueryHanndler(IApplicationDbContext context)
             {
                 this.context = context;
             }
-            public async Task<IEnumerable<WayBill>> Handle(GetAllLocationQuery request, CancellationToken cancellationToken)
+            public async Task<IEnumerable<WayBill>> Handle(GetAllWayBillQuery request, CancellationToken cancellationToken)
             {
                 return await context.WayBills.ToListAsync();
             }

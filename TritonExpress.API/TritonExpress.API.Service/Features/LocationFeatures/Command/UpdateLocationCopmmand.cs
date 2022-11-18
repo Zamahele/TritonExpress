@@ -11,23 +11,23 @@ using TritonExpress.API.Persistence;
 
 namespace TritonExpress.API.Service.Features.LocationFeatures.Command
 {
-    public class UpdateBranchCopmman: Location,IRequest<Location>
+    public class UpdateBranchCopmman: Allocation,IRequest<Allocation>
     {
-        public class UpdateLocationCopmmanHandler : IRequestHandler<UpdateBranchCopmman, Location>
+        public class UpdateLocationCopmmanHandler : IRequestHandler<UpdateBranchCopmman, Allocation>
         {
             private readonly IApplicationDbContext context;
             public UpdateLocationCopmmanHandler(IApplicationDbContext context)
             {
                 this.context = context;
             }
-            public async Task<Location> Handle(UpdateBranchCopmman request, CancellationToken cancellationToken)
+            public async Task<Allocation> Handle(UpdateBranchCopmman request, CancellationToken cancellationToken)
             {
-                var Location = await context.Locations.FirstOrDefaultAsync(x => x.LocationId == request.LocationId);
+                var Location = await context.Locations.FirstOrDefaultAsync(x => x.AllocationId == request.AllocationId);
 
-                var LocationId = request.LocationId;
-                Location.Address = request.Address;
-                Location.ZipCode = request.ZipCode;
-                Location.BrancheId = request.BrancheId;
+                var LocationId = request.AllocationId;
+                Location.VehicleId = request.VehicleId;
+                Location.WayBill = request.WayBill;
+                Location.WayBillId = request.WayBillId;
                 context.Locations.Update(Location);
                 await context.SaveChangesAsync();
                 return Location;

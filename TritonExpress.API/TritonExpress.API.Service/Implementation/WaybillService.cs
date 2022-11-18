@@ -16,6 +16,12 @@ namespace TritonExpress.API.Service.Implementation
             this.repository = repository;
             this.repository.requestUrl = "WayBill";
         }
+
+        public async Task DeleteWayBill(int wayBillId)
+        {
+            await repository.Remove(wayBillId);
+        }
+
         public async Task<IQueryable<WayBill>> GetAllWayBills()
         {
             return await repository.GetAll();

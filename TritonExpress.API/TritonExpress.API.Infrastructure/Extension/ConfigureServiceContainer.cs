@@ -44,6 +44,8 @@ namespace TritonExpress.API.Infrastructure.Extension
         {
             serviceCollection.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
             serviceCollection.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            serviceCollection.AddScoped<ICacheService, CacheService>();
+            serviceCollection.AddScoped<ICurrentUserService, CurrentUserService>();
         }
         public static void AddTransientServices(this IServiceCollection serviceCollection)
         {
@@ -67,8 +69,8 @@ namespace TritonExpress.API.Infrastructure.Extension
                         Description = "Through this API you can access customer details",
                         Contact = new OpenApiContact()
                         {
-                            Email = "amit.naik8103@gmail.com",
-                            Name = "Amit Naik",
+                            Email = "ndimandezj@gmail.com",
+                            Name = "Zama Ndimande",
                             Url = new Uri("https://amitpnk.github.io/")
                         },
                         License = new OpenApiLicense()

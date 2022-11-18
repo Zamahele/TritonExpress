@@ -6,12 +6,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TritonExpress.API.Domain.Entities.Base;
 
 namespace TritonExpress.API.Domain.Entities
 {
-    public class Vehicle
+    public class Vehicle : EntityBase
     {
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int VehicleId { get; set; }
         [Required(ErrorMessage = "*")]
         public string Model { get; set; }

@@ -15,8 +15,8 @@ namespace TritonExpress.API.Persistence.Seeds
                     Id = Constants.SuperAdminUser,
                     UserName = "superadmin",
                     Email = "superadmin@gmail.com",
-                    FirstName = "Amit",
-                    LastName = "Naik",
+                    FirstName = "Zama",
+                    LastName = "Ndimande",
                     EmailConfirmed = true,
                     PhoneNumberConfirmed = true,
                     // Password@123

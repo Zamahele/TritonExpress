@@ -19,6 +19,40 @@ namespace TritonExpress.API.Persistence.Migrations
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("TritonExpress.API.Domain.Entities.Allocation", b =>
+                {
+                    b.Property<int>("AllocationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("UpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("VehicleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WayBillId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AllocationId");
+
+                    b.HasIndex("VehicleId");
+
+                    b.HasIndex("WayBillId");
+
+                    b.ToTable("Locations");
+                });
+
             modelBuilder.Entity("TritonExpress.API.Domain.Entities.Branch", b =>
                 {
                     b.Property<int>("BranchId")
@@ -27,13 +61,28 @@ namespace TritonExpress.API.Persistence.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BranchName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
+                    b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("UpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<int>("ZipCode")
                         .HasColumnType("int");
@@ -43,25 +92,36 @@ namespace TritonExpress.API.Persistence.Migrations
                     b.ToTable("Branches");
                 });
 
-            modelBuilder.Entity("TritonExpress.API.Domain.Entities.Location", b =>
+            modelBuilder.Entity("TritonExpress.API.Domain.Entities.Lookup", b =>
                 {
-                    b.Property<int>("LocationId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Address")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("BrancheId")
-                        .HasColumnType("int");
+                    b.HasKey("Id");
 
-                    b.Property<int>("ZipCode")
-                        .HasColumnType("int");
+                    b.ToTable("Status");
 
-                    b.HasKey("LocationId");
-
-                    b.ToTable("Locations");
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Packing"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "On Transit"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Delived"
+                        });
                 });
 
             modelBuilder.Entity("TritonExpress.API.Domain.Entities.Vehicle", b =>
@@ -74,19 +134,36 @@ namespace TritonExpress.API.Persistence.Migrations
                     b.Property<int>("BranchId")
                         .HasColumnType("int");
 
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Make")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Model")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RegistrationNo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("UpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");
 
                     b.HasKey("VehicleId");
+
+                    b.HasIndex("BranchId");
 
                     b.ToTable("Vehicles");
                 });
@@ -97,6 +174,12 @@ namespace TritonExpress.API.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime>("ETADate")
                         .HasColumnType("datetime2");
@@ -110,6 +193,12 @@ namespace TritonExpress.API.Persistence.Migrations
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("UpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTime>("WaybillDate")
                         .HasColumnType("datetime2");
 
@@ -122,6 +211,36 @@ namespace TritonExpress.API.Persistence.Migrations
                     b.HasKey("WayBillId");
 
                     b.ToTable("WayBills");
+                });
+
+            modelBuilder.Entity("TritonExpress.API.Domain.Entities.Allocation", b =>
+                {
+                    b.HasOne("TritonExpress.API.Domain.Entities.Vehicle", "Vehicle")
+                        .WithMany()
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TritonExpress.API.Domain.Entities.WayBill", "WayBill")
+                        .WithMany()
+                        .HasForeignKey("WayBillId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Vehicle");
+
+                    b.Navigation("WayBill");
+                });
+
+            modelBuilder.Entity("TritonExpress.API.Domain.Entities.Vehicle", b =>
+                {
+                    b.HasOne("TritonExpress.API.Domain.Entities.Branch", "Branch")
+                        .WithMany()
+                        .HasForeignKey("BranchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Branch");
                 });
 #pragma warning restore 612, 618
         }

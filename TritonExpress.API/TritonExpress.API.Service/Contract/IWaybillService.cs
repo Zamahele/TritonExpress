@@ -13,5 +13,6 @@ namespace TritonExpress.API.Service.Contract
         Task<WayBill> GetWayBillById(int wayBillId);
         Task<int> InsertWayBill(WayBill wayBill);
         Task UpdateWayBill(WayBill wayBillId);
+        Task DeleteWayBill(int wayBillId);
     }
 }

@@ -10,7 +10,7 @@ using TritonExpress.API.Persistence;
 
 namespace TritonExpress.API.Service.Features.LocationFeatures.Command
 {
-    public class InsertBranchComman : Location,IRequest<int>
+    public class InsertBranchComman : Allocation,IRequest<int>
     {
         public class InsertLocationCommanHandler : IRequestHandler<InsertBranchComman, int>
         {
@@ -21,14 +21,14 @@ namespace TritonExpress.API.Service.Features.LocationFeatures.Command
             }
             public async Task<int> Handle(InsertBranchComman request, CancellationToken cancellationToken)
             {
-                var Location = new Location();
-                Location.Address = request.Address;
-                Location.ZipCode = request.ZipCode;
-                Location.BrancheId = request.BrancheId;
+                var Location = new Allocation();
+                Location.VehicleId = request.VehicleId;
+                Location.WayBill = request.WayBill;
+                Location.WayBillId = request.WayBillId;
 
                 await context.Locations.AddAsync(Location);
                 await context.SaveChangesAsync();
-                return Location.LocationId;
+                return Location.AllocationId;
             }
         }
     }
