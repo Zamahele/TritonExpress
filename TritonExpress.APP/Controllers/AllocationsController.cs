@@ -17,9 +17,11 @@ namespace TritonExpress.APP.Controllers
         private readonly IVehicleService _vehicle;
         private readonly IWaybillService _waybill;
 
-        public AllocationsController(IAllocationService context)
+        public AllocationsController(IAllocationService context, IVehicleService vehicle, IWaybillService waybill)
         {
             _context = context;
+            _vehicle = vehicle;
+            _waybill = waybill;
         }
 
         // GET: Allocations
@@ -49,7 +51,7 @@ namespace TritonExpress.APP.Controllers
         public async Task<IActionResult> Create()
         {
             ViewData["VehicleId"] = new SelectList(await _vehicle.GetAllVehicles(), "VehicleId", "Make");
-            ViewData["WayBillId"] = new SelectList(await _waybill.GetAllWayBills(), "WayBillId", "WayBillId");
+            ViewData["WayBillId"] = new SelectList(await _waybill.GetAllWayBills(), "WayBillId", "WaybillNo");
             return View();
         }
 
@@ -66,7 +68,7 @@ namespace TritonExpress.APP.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["VehicleId"] = new SelectList(await _vehicle.GetAllVehicles(), "VehicleId", "Make", allocation.VehicleId);
-            ViewData["WayBillId"] = new SelectList(await _waybill.GetAllWayBills(), "WayBillId", "WayBillId", allocation.WayBillId);
+            ViewData["WayBillId"] = new SelectList(await _waybill.GetAllWayBills(), "WayBillId", "WaybillNo", allocation.WayBillId);
             return View(allocation);
         }
 
@@ -84,7 +86,7 @@ namespace TritonExpress.APP.Controllers
                 return NotFound();
             }
             ViewData["VehicleId"] = new SelectList(await _vehicle.GetAllVehicles(), "VehicleId", "Make", allocation.VehicleId);
-            ViewData["WayBillId"] = new SelectList(await _waybill.GetAllWayBills(), "WayBillId", "WayBillId", allocation.WayBillId);
+            ViewData["WayBillId"] = new SelectList(await _waybill.GetAllWayBills(), "WayBillId", "WaybillNo", allocation.WayBillId);
             return View(allocation);
         }
 
@@ -120,7 +122,7 @@ namespace TritonExpress.APP.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["VehicleId"] = new SelectList(await _vehicle.GetAllVehicles(), "VehicleId", "Make", allocation.VehicleId);
-            ViewData["WayBillId"] = new SelectList(await _waybill.GetAllWayBills(), "WayBillId", "WayBillId", allocation.WayBillId);
+            ViewData["WayBillId"] = new SelectList(await _waybill.GetAllWayBills(), "WayBillId", "WaybillNo", allocation.WayBillId);
             return View(allocation);
         }
 

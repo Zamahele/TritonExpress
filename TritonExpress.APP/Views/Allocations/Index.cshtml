@@ -4,12 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h4 style="text-align:center">Allocations</h4>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary btn-sm">Create New</a>
 </p>
-<table class="table">
+<table class="table table-striped" id="Datatable">
     <thead>
         <tr>
             <th>
@@ -30,7 +30,7 @@
                 @Html.DisplayFor(modelItem => item.Vehicle.Make)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.WayBill.WayBillId)
+                @Html.DisplayFor(modelItem => item.WayBill.WaybillNo)
             </td>
 
             <td style="text-align:center">
