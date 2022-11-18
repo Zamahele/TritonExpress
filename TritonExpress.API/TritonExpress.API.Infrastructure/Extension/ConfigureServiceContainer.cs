@@ -71,12 +71,6 @@ namespace TritonExpress.API.Infrastructure.Extension
                         {
                             Email = "ndimandezj@gmail.com",
                             Name = "Zama Ndimande",
-                            Url = new Uri("https://amitpnk.github.io/")
-                        },
-                        License = new OpenApiLicense()
-                        {
-                            Name = "MIT License",
-                            Url = new Uri("https://opensource.org/licenses/MIT")
                         }
                     });
 
