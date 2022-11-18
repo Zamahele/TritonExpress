@@ -18,12 +18,13 @@ namespace TritonExpress.API.Persistence
         // This constructor is used of runit testing
         public ApplicationDbContext()
         {
-
+            this.Database.EnsureCreated();
         }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, ICurrentUserService currentUserService) : base(options)
         {
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
             _currentUserService = currentUserService;
+            this.Database.EnsureCreated();
         }
 
         public DbSet<Vehicle> Vehicles { get; set; }
@@ -46,6 +47,12 @@ namespace TritonExpress.API.Persistence
         {
             List<Lookup> statuses = DefualtStatus.LookupList();
             modelBuilder.Entity<Lookup>().HasData(statuses);
+
+            List<IdentityRole> roles = DefualtRoles.IdentityRoleList();
+            modelBuilder.Entity<IdentityRole>().HasData(roles);
+            
+
+            modelBuilder.Entity<AspNetUsers>().Metadata.SetIsTableExcludedFromMigrations(true);
 
             base.OnModelCreating (modelBuilder);
         }

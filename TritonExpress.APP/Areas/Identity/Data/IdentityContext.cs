@@ -6,9 +6,11 @@ namespace TritonExpress.API.Persistence;
 
 public class IdentityContext : IdentityDbContext<IdentityUser>
 {
+
     public IdentityContext(DbContextOptions<IdentityContext> options)
         : base(options)
     {
+        this.Database.EnsureCreated();
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
