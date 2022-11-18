@@ -20,7 +20,7 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(IRepositoryIdentity<>), typeof(RepositoryIdentity<>));
 builder.Services.AddScoped<IVehicleService, VehicleService>();
 builder.Services.AddScoped<IWaybillService, WaybillService>();
-builder.Services.AddScoped<ILocationService, LocationService>();
+builder.Services.AddScoped<IAllocationService, AllocationService>();
 builder.Services.AddScoped<IBranchService, BranchService>();
 builder.Services.AddScoped<IStatusService, StatusService>();
 builder.Services.AddScoped<ITokenService, TokenService>();

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<TritonExpress.API.Domain.Entities.Allocation>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WayBill)
+            </th>
+             <th style="text-align:center">
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vehicle.Make)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WayBill.WayBillId)
+            </td>
+
+            <td style="text-align:center">
+                <a asp-action="Edit" asp-route-id="@item.AllocationId" class="btn btn-warning btn-sm">Edit</a> 
+                <a asp-action="Details" asp-route-id="@item.AllocationId" class="btn btn-info btn-sm">Details</a> 
+                <a asp-action="Delete" asp-route-id="@item.AllocationId" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

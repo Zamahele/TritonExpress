@@ -27,7 +27,7 @@ namespace TritonExpress.API.Persistence
         }
 
         public DbSet<Vehicle> Vehicles { get; set; }
-        public DbSet<Allocation> Locations { get; set; }
+        public DbSet<Allocation> AllLocations { get; set; }
         public DbSet<WayBill> WayBills { get; set; }
         public DbSet<Branch> Branches { get; set; }
         public DbSet<Lookup> Status { get; set; }

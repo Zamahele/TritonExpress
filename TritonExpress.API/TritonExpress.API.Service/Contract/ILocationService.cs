@@ -7,11 +7,12 @@ using TritonExpress.API.Domain.Entities;
 
 namespace TritonExpress.API.Service.Contract
 {
-    public interface ILocationService
+    public interface IAllocationService
     {
         Task<IQueryable<Allocation>> GetAllLocations();
-        Task<Allocation> GetLocationById(int LocationId);
-        Task<int> InsertLocation (Allocation location);
-        Task UpdateLocation(Allocation location);
+        Task<Allocation> GetAllLocationById(int LocationId);
+        Task<int> InsertAllLocation (Allocation location);
+        Task UpdateAllLocation(Allocation location);
+        Task DeleteAllLocation(int Id);
     }
 }

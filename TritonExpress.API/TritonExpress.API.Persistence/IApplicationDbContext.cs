@@ -8,7 +8,7 @@ namespace TritonExpress.API.Persistence
     public interface IApplicationDbContext
     {
         DbSet<Vehicle> Vehicles { get; set; }
-        DbSet<Allocation> Locations { get; set; }
+        DbSet<Allocation> AllLocations { get; set; }
         DbSet<WayBill> WayBills { get; set; }
         DbSet<Branch> Branches { get; set; }
         DbSet<Lookup> Status { get; set; }

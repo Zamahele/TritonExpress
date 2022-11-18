@@ -11,18 +11,18 @@ using TritonExpress.API.Persistence;
 
 namespace TritonExpress.API.Service.Features.LocationFeatures.Query
 {
-    public class GetAllBranchesQuery : IRequest<IEnumerable<Allocation>>
+    public class GetAllAllocationsQuery : IRequest<IEnumerable<Allocation>>
     {
-        public class GetAllLocationsQueryHanndler : IRequestHandler<GetAllBranchesQuery, IEnumerable<Allocation>>
+        public class GetAllLocationsQueryHanndler : IRequestHandler<GetAllAllocationsQuery, IEnumerable<Allocation>>
         {
             private readonly IApplicationDbContext context;
             public GetAllLocationsQueryHanndler(IApplicationDbContext context)
             {
                 this.context = context;
             }
-            public async Task<IEnumerable<Allocation>> Handle(GetAllBranchesQuery request, CancellationToken cancellationToken)
+            public async Task<IEnumerable<Allocation>> Handle(GetAllAllocationsQuery request, CancellationToken cancellationToken)
             {
-                return await context.Locations.ToListAsync();
+                return await context.AllLocations.Include(a => a.Vehicle).Include(a => a.WayBill).ToListAsync();
             }
         }
     }
