@@ -64,13 +64,13 @@ namespace TritonExpress.API.Infrastructure.Extension
                     "OpenAPISpecification",
                     new OpenApiInfo()
                     {
-                        Title = "Onion Architecture WebAPI",
+                        Title = "Triton Express Onion Architecture WebAPI",
                         Version = "1",
-                        Description = "Through this API you can access customer details",
+                        Description = "Through this API you can access Triton Express Data",
                         Contact = new OpenApiContact()
                         {
                             Email = "ndimandezj@gmail.com",
-                            Name = "Zama Ndimande",
+                            Name = "Zama Ndimande"
                         }
                     });
 
