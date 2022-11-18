@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using TritonExpress.API.Service.Contract;
 
 namespace TritonExpress.APP.Controllers
 {
+    [Authorize]
     public class VehiclesController : Controller
     {
         private readonly IVehicleService _context;
@@ -122,6 +124,7 @@ namespace TritonExpress.APP.Controllers
             }
             if (VehicleExists(vehicle.RegistrationNo, vehicle.VehicleId))
                 ModelState.AddModelError(string.Empty, "Vihleces can't share the same registration number");
+            ViewData["Branches"] = new SelectList(await _braches.GetAllBranches(), "BranchId", "BranchName", vehicle.BranchId);
             return View(vehicle);
         }
 
@@ -172,7 +175,7 @@ namespace TritonExpress.APP.Controllers
 
         private bool VehicleExists(string registrationNo , int Id)
         {
-            return _context.GetAllVehicles().Result.Any(e => e.RegistrationNo == registrationNo && e.VehicleId == Id);
+            return _context.GetAllVehicles().Result.Any(e => e.RegistrationNo == registrationNo && e.VehicleId != Id);
         }
 
         private bool VehicleIsLined(int id)

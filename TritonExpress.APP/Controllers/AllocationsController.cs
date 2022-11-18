@@ -11,6 +11,7 @@ using TritonExpress.API.Service.Contract;
 
 namespace TritonExpress.APP.Controllers
 {
+
     public class AllocationsController : Controller
     {
         private readonly IAllocationService _context;
@@ -62,12 +63,12 @@ namespace TritonExpress.APP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("AllocationId,VehicleId,WayBillId,CreatedOn,CreatedBy,UpdatedOn,UpdatedBy")] Allocation allocation)
         {
-            if (ModelState.IsValid && !AllocationExists(allocation.WayBillId, allocation.VehicleId))
+            if (ModelState.IsValid && !IsWayBillAllocated(allocation.WayBillId))
             {
                 await _context.InsertAllLocation(allocation);
                 return RedirectToAction(nameof(Index));
             }
-            if (AllocationExists(allocation.WayBillId, allocation.VehicleId))
+            if (IsWayBillAllocated(allocation.WayBillId))
                 ModelState.AddModelError(String.Empty, "This WayBill alredy Allocated");
 
             ViewData["VehicleId"] = new SelectList(await _vehicle.GetAllVehicles(), "VehicleId", "Make", allocation.VehicleId);
@@ -125,7 +126,7 @@ namespace TritonExpress.APP.Controllers
                 return RedirectToAction(nameof(Index));
             }
             if (AllocationExists(allocation.WayBillId, allocation.VehicleId))
-                ModelState.AddModelError(String.Empty, "This WayBill alredy allocated");
+                ModelState.AddModelError(String.Empty, "This WayBill alredy allocated to a different Vehicle");
 
             ViewData["VehicleId"] = new SelectList(await _vehicle.GetAllVehicles(), "VehicleId", "Make", allocation.VehicleId);
             ViewData["WayBillId"] = new SelectList(await _waybill.GetAllWayBills(), "WayBillId", "WaybillNo", allocation.WayBillId);
@@ -172,9 +173,14 @@ namespace TritonExpress.APP.Controllers
           return _context.GetAllLocations().Result.Any(e => e.AllocationId == id);
         }
 
+        private bool IsWayBillAllocated(int wayBillId)
+        {
+            return _context.GetAllLocations().Result.Any(e => e.WayBillId == wayBillId);
+        }
+
         private bool AllocationExists(int wayBillId, int vehicleId)
         {
-            return _context.GetAllLocations().Result.Any(e => e.WayBillId == wayBillId && e.VehicleId == vehicleId);
+            return _context.GetAllLocations().Result.Any(e => e.WayBillId == wayBillId && e.VehicleId != vehicleId);
         }
     }
 }

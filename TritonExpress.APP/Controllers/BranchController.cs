@@ -58,11 +58,13 @@ namespace TritonExpress.APP.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Branch branch)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && !BranchExists(branch.BranchName))
             {
                await _context.InsertBranch(branch);
                 return RedirectToAction(nameof(Index));
             }
+            if (BranchExists(branch.BranchName))
+                ModelState.AddModelError(string.Empty, "Branch Name is taken, sorry !!!!");
             return View(branch);
         }
 
@@ -94,7 +96,7 @@ namespace TritonExpress.APP.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && !BranchExists(branch.BranchName, branch.BranchId))
             {
                 try
                 {
@@ -113,6 +115,9 @@ namespace TritonExpress.APP.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            if (BranchExists(branch.BranchName, branch.BranchId))
+                ModelState.AddModelError(string.Empty,"Branch Name is taken, sorry !!!!");
             return View(branch);
         }
 
@@ -150,6 +155,16 @@ namespace TritonExpress.APP.Controllers
         private bool BranchExists(int id)
         {
           return _context.GetAllBranches().Result.Any(e => e.BranchId == id);
+        }
+
+        private bool BranchExists(string branchName)
+        {
+            return _context.GetAllBranches().Result.Any(e => e.BranchName == branchName);
+        }
+
+        private bool BranchExists(string branchName, int id)
+        {
+            return _context.GetAllBranches().Result.Any(e => e.BranchName == branchName && e.BranchId != id);
         }
     }
 }

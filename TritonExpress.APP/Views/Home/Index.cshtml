@@ -1,7 +1,95 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@inject TritonExpress.API.Service.Contract.IVehicleService _vehicle;
+@inject TritonExpress.API.Service.Contract.IBranchService _branch;
+@inject TritonExpress.API.Service.Contract.IAllocationService _allocation;
+@inject TritonExpress.API.Service.Contract.IWaybillService _waybill;
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-</div>
+@if (User.Identity?.Name != null)
+{
+    var getVehicles = _vehicle.GetAllVehicles().Result.Count();
+    var getBranches = _branch.GetAllBranches().Result.Count();
+    var getAllocations = _allocation.GetAllLocations().Result.Count();
+    var getWaybills = _waybill.GetAllWayBills().Result.Count();
+
+    <body>
+        <div>
+            <div class="shadow-lg p-3 mb-5 bg-white rounded"><p style="font-weight: bold; color: black; padding-top: 0px; margin-bottom: 0px;">Welcome!</p></div>
+            <!-- row -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6" style="padding-top: 15px; padding-bottom: 15px;">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Vehicles" asp-action="Index">
+                            <div class="card bg-primary text-white">
+                                <div class="stat-widget-two card-body">
+                                    <div class="stat-content">
+                                        <div class="stat-text">Vehicles </div>
+                                        <div>
+
+                                            Vehicles: #@getVehicles
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6" style="padding-top: 15px; padding-bottom: 15px;">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Branches" asp-action="Indx" >
+                            <div class="card bg-warning text-white">
+                                <div class="stat-widget-two card-body">
+                                    <div class="stat-content">
+                                        <div class="stat-text"> Branch</div>
+                                        <div class="stat-digit">
+
+                                            Wibills :#@getBranches
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-sm-6" style="padding-top: 15px; padding-bottom: 15px;">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Allocations" asp-action="Index">
+                            <div class="card bg-danger text-white">
+                                <div class="stat-widget-two card-body">
+                                    <div class="stat-content">
+                                        <div class="stat-text">Waiting Approval</div>
+                                        <div class="stat-digit">
+                                            WayBills Allocated :#@getAllocations
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6" style="padding-top: 15px; padding-bottom: 15px;">
+                        <a class="nav-link text-white" asp-area="" asp-controller="WayBills" asp-action="Index">
+                            <div class="card bg-success text-white">
+                                <div class="stat-widget-two card-body">
+                                    <div class="stat-content">
+                                        <div class="stat-text">WayBills</div>
+                                        <div class="stat-digit">
+
+                                            WayBills :#@getWaybills
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <!-- /# card -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+}
+else
+{
+    <div>
+     <div class="shadow-lg p-3 mb-5 bg-white rounded"><p style="font-weight: bold; color: black; padding-top: 0px; margin-bottom: 0px;">Welcome! Triton Express</p></div>
+    </div>
+}

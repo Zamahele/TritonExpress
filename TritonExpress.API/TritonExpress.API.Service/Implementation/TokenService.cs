@@ -21,7 +21,6 @@ namespace TritonExpress.API.Service.Implementation
         }
         public string GetToken(string username)
         {
-
             var cacheData = _cacheService?.GetData<Token>("token");
             if (cacheData?.TokenCode != null)
             {
@@ -30,10 +29,10 @@ namespace TritonExpress.API.Service.Implementation
             var expirationTime = DateTimeOffset.Now.AddMinutes(5.0);
             var response = _context.GetToken(username);
             var getToke = response.Content.ReadAsAsync<Token>().Result;
-           
-            _cacheService.SetData<Token>("token", getToke, expirationTime);
-            _cacheService.SetData<string>("User", username, expirationTime);
-
+            if (getToke != null)
+            {
+                _cacheService.SetData<Token>("token", getToke, expirationTime);
+            }
             return getToke.TokenCode;
         }
     }
